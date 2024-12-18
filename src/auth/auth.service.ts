@@ -22,11 +22,16 @@ export class AuthService {
         }
 
 
-        return await this.usersService.create({
+        await this.usersService.create({
             name,
             email,
             password: await bcryptjs.hash(password,10)
         });
+
+        return {
+            name,
+            email
+        }
     }
 
     async login({email,password}: LoginDto) {
@@ -40,7 +45,7 @@ export class AuthService {
             throw new UnauthorizedException('Credenciales incorrectas');
         }
 
-        const payload = {email: user.email};
+        const payload = {email: user.email, role: user.role};
 
         const token = await this.jwtService.signAsync(payload);
 
