@@ -4,6 +4,7 @@
 /build
 
 /mysql
+/uploads
 
 # Logs
 logs
